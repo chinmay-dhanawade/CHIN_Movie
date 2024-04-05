@@ -1,0 +1,54 @@
+<!-- movie_detail.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ movie.title }}</title>
+</head>
+<body>
+    <h1>{{ movie.title }}</h1>
+
+    <!-- Calculate Average Rating -->
+    {% if ratings %}
+        {% with total_rating=0 total_ratings=ratings.count %}
+            {% for rating in ratings %}
+                {% with total_rating=total_rating|add:rating.rating %}
+                {% endwith %}
+            {% endfor %}
+            {% with average_rating=total_rating|div:total_ratings %}
+                <p>Average Rating: {{ average_rating }}</p>
+            {% endwith %}
+        {% endwith %}
+    {% endif %}
+
+    <!-- Display Ratings -->
+    <h2>Ratings:</h2>
+    {% for rating in ratings %}
+        <p>{{ rating.user.username }} rated: {{ rating.rating }}</p>
+    {% endfor %}
+
+    <!-- Rating Form -->
+    <h2>Rate this movie:</h2>
+    <form method="post" action="{% url 'rate_movie' pk=movie.id %}">
+        {% csrf_token %}
+        {{ rating_form.as_p }}
+        <button type="submit">Submit Rating</button>
+    </form>
+
+    <!-- Display Reviews -->
+    <h2>Reviews:</h2>
+    {% for review in reviews %}
+        <p>{{ review.user.username }} says: {{ review.text }}</p>
+    {% endfor %}
+
+    <!-- Review Form -->
+    <h2>Write a review:</h2>
+    <form method="post" action="{% url 'review_movie' pk=movie.id %}">
+        {% csrf_token %}
+        {{ review_form.as_p }}
+        <button type="submit">Submit Review</button>
+    </form>
+</body>
+</html>

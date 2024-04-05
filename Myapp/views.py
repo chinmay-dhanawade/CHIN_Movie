@@ -96,5 +96,5 @@ def user_logout(request):
     # Redirect to desired page after successful logout
     return redirect('Myapp:user_login') 
 
- #rating 
+ 
  
