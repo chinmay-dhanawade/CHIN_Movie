@@ -1,4 +1,5 @@
 {% include 'Myapp/header.html'%}
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,12 +10,16 @@
       background-color: #f4f4f4;
       margin: 0;
       padding: 0;
+      background-image: url("{% static 'Myapp/images/IMAGE_delete.jpg' %}");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
     }
     .container {
       max-width: 600px;
-      margin: 50px auto;
+      margin: 220px auto;
       padding: 20px;
-      background-color: #fff;
+      background-color: rgba(255, 255, 255, 0.5);
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }

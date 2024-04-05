@@ -1,6 +1,6 @@
 from django.db import models
 import uuid
-
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -9,5 +9,12 @@ class Movie(models.Model):
     release_date = models.DateField()
     director = models.CharField(max_length=255)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    #rating = models.DecimalField(max_digits=5, decimal_places=1, default=0)
-    
+    average_rating = models.FloatField(default=0.0)
+    total_ratings = models.IntegerField(default=0)
+
+class Review(models.Model):
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='reviews')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    rating = models.IntegerField(default=0)
+    comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)

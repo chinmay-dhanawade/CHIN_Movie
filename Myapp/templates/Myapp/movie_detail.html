@@ -1,54 +1,140 @@
-<!-- movie_detail.html -->
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ movie.title }}</title>
+    <title>{{ movie.title }} - Movie Detail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image:url("{% static 'Myapp/images/IMAGE_detail.jpg' %}");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            overflow-y: auto;
+            max-height: 80vh; 
+        }
+
+        .container h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .container p {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .user-reviews {
+            list-style: none;
+            padding: 0;
+        }
+
+        .user-reviews li {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+            margin-bottom: 10px;
+        }
+
+        .user-reviews li:last-child {
+            border-bottom: none;
+        }
+
+        .user-reviews p {
+            margin: 5px 0;
+        }
+
+        .user-reviews p:first-child {
+            font-weight: bold;
+        }
+
+        .add-review-form {
+            margin-top: 20px;
+        }
+
+        .add-review-form label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .add-review-form select,
+        .add-review-form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .add-review-form button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .add-review-form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h1>{{ movie.title }}</h1>
-
-    <!-- Calculate Average Rating -->
-    {% if ratings %}
-        {% with total_rating=0 total_ratings=ratings.count %}
-            {% for rating in ratings %}
-                {% with total_rating=total_rating|add:rating.rating %}
-                {% endwith %}
-            {% endfor %}
-            {% with average_rating=total_rating|div:total_ratings %}
-                <p>Average Rating: {{ average_rating }}</p>
-            {% endwith %}
-        {% endwith %}
-    {% endif %}
-
-    <!-- Display Ratings -->
-    <h2>Ratings:</h2>
-    {% for rating in ratings %}
-        <p>{{ rating.user.username }} rated: {{ rating.rating }}</p>
-    {% endfor %}
-
-    <!-- Rating Form -->
-    <h2>Rate this movie:</h2>
-    <form method="post" action="{% url 'rate_movie' pk=movie.id %}">
-        {% csrf_token %}
-        {{ rating_form.as_p }}
-        <button type="submit">Submit Rating</button>
-    </form>
-
-    <!-- Display Reviews -->
-    <h2>Reviews:</h2>
-    {% for review in reviews %}
-        <p>{{ review.user.username }} says: {{ review.text }}</p>
-    {% endfor %}
-
-    <!-- Review Form -->
-    <h2>Write a review:</h2>
-    <form method="post" action="{% url 'review_movie' pk=movie.id %}">
-        {% csrf_token %}
-        {{ review_form.as_p }}
-        <button type="submit">Submit Review</button>
-    </form>
+    <div class="container">
+        <h1>{{ movie.title }}</h1>
+        <p><strong>Director:</strong> {{ movie.director }}</p>
+        <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
+        
+        <h2>User Rating</h2>
+        <p><strong>Average Rating:</strong> {{ movie.average_rating }}</p>
+        <p><strong>Total Ratings:</strong> {{ movie.total_ratings }}</p>
+        
+        <h2>User Reviews</h2>
+        {% if movie.reviews.all %}
+            <ul class="user-reviews">
+                {% for review in movie.reviews.all %}
+                    <li>
+                        <p><strong>Rating:</strong> {{ review.rating }}</p>
+                        <p><strong>Comment:</strong> {{ review.comment }}</p>
+                        <p><strong>By:</strong> {{ review.user }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No reviews yet. Be the first to review!</p>
+        {% endif %}
+        
+        <div class="add-review-form">
+            <h2>Add Your Rating and Review</h2>
+            <form method="post" action="{% url 'Myapp:add_review' movie.id %}">
+                {% csrf_token %}
+                <label for="id_rating">Rating:</label>
+                <select name="rating" id="id_rating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <label for="id_comment">Comment:</label>
+                <textarea name="comment" id="id_comment" cols="30" rows="5"></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
