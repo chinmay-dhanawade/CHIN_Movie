@@ -18,7 +18,7 @@ def movie_list(request):
     movies = Movie.objects.all()
     
     # Paginate the queryset
-    paginator = Paginator(movies, 5)  # Show 10 movies per page
+    paginator = Paginator(movies, 10)  # Show 10 movies per page
     page = request.GET.get('page')  # Get the current page number
     
     try:
