@@ -89,21 +89,7 @@ def register(request):
     return render(request, 'Myapp/register.html', {'form': form})
     
 #login view
-'''def user_login(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('Myapp:movie_list')
-            else:
-                messages.error(request, "Invalid username or password. Please try again.")
-    else:
-        form = AuthenticationForm()
-    return render(request, 'Myapp/login.html', {'form': form})'''
+
 def user_login(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
