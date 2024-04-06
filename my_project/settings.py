@@ -133,7 +133,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CSRF_TRUSTED_ORIGINS = ['https://4d70464c138340debd83a71a48ab9a8e.vfs.cloud9.eu-west-1.amazonaws.com',
-                        'https://a76777b6494d4e1683753c05cd7d9f49.vfs.cloud9.eu-west-1.amazonaws.com']
+CSRF_TRUSTED_ORIGINS=['https://4d70464c138340debd83a71a48ab9a8e.vfs.cloud9.eu-west-1.amazonaws.com',
+'https://a76777b6494d4e1683753c05cd7d9f49.vfs.cloud9.eu-west-1.amazonaws.com']
 
 LOGIN_REDIRECT_URL = 'user_login'
