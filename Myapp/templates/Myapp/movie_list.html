@@ -212,6 +212,12 @@
             right: 10px;
             cursor: pointer;
         }
+         .movie-item img {
+            width: 60px;
+            height: auto;
+            border-radius: 10px 10px 0 0;
+        }
+
     </style>
 </head>
 <body>
@@ -230,6 +236,7 @@
                         <a href="{% url 'Myapp:movie_update' movie.id %}" class="redirect-button"><i class="fas fa-edit"></i></a>
                         <a href="{% url 'Myapp:movie_delete' movie.id %}" class="redirect-button"><i class="fas fa-trash-alt"></i></a>
                     </div>
+                    <img src="{{ movie.poster.url }}" alt="{{ movie.title }} Poster">
                     <p class="movie-title">{{ movie.title }}</p>
                     <p class="movie-details">Released: {{ movie.release_date }} - Director: {{ movie.director }} - Rating : {{movie.average_rating}}</p>
                 </li>
@@ -306,6 +313,7 @@
             popupContainer.style.display = 'block';
             popupIframe.src = "/add_review/" + movieId + "/";
         }
+
     </script>
 </body>
 </html>

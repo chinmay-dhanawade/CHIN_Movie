@@ -16,9 +16,8 @@ def movie_list(request):
         return redirect('Myapp:user_login')
     
     movies = Movie.objects.all()
-    
     # Paginate the queryset
-    paginator = Paginator(movies, 10)  # Show 10 movies per page
+    paginator = Paginator(movies, 9)  # Show 10 movies per page
     page = request.GET.get('page')  # Get the current page number
     
     try:
@@ -36,7 +35,7 @@ def movie_list(request):
 def movie_create(request):
   """Creates a new movie."""
   if request.method == 'POST':
-    form = MovieForm(request.POST)
+    form = MovieForm(request.POST, request.FILES)
     if form.is_valid():
             movie_instance = form.save(commit=False)  # Save without committing to database
             movie_instance.id = uuid.uuid4()  # Assign a UUID to the movie instance

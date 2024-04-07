@@ -138,3 +138,8 @@ CSRF_TRUSTED_ORIGINS=['https://4d70464c138340debd83a71a48ab9a8e.vfs.cloud9.eu-we
 'https://a76777b6494d4e1683753c05cd7d9f49.vfs.cloud9.eu-west-1.amazonaws.com']
 
 LOGIN_REDIRECT_URL = 'user_login'
+
+#######################
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+

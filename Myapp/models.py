@@ -11,6 +11,7 @@ class Movie(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     average_rating = models.FloatField(default=0.0)
     total_ratings = models.IntegerField(default=0)
+    poster = models.FileField(default="leo.jpeg", upload_to="posters")
 
 class Review(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='reviews')

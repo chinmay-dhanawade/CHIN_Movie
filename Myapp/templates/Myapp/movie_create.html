@@ -48,7 +48,8 @@
     }
 
     input[type="text"],
-    input[type="date"] {
+    input[type="date"],
+    input[type="file"] {
       width: 100%;
       padding: 12px;
       margin-bottom: 20px;
@@ -58,7 +59,8 @@
     }
 
     input[type="text"]:focus,
-    input[type="date"]:focus {
+    input[type="date"]:focus,
+    input[type="file"]:focus {
       outline: none;
       border-color: #3498db;
       box-shadow: 0 0 10px rgba(52, 152, 219, 0.6);
@@ -87,12 +89,15 @@
     .error {
       color: #dc3545;
     }
+    .movie-poster {
+    size: 20px /* Adjust the padding value as needed */
+  }
   </style>
 </head>
 <body>
   <div class="container">
     <h2>Create Movie</h2>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <label for="title">Title:</label>
       <input type="text" id="title" name="title" required>
@@ -100,6 +105,8 @@
       <input type="date" id="release_date" name="release_date" required>
       <label for="director">Director:</label>
       <input type="text" id="director" name="director" required>
+      <label for="poster">Poster:</label>
+      <input type="file" id="poster" name="poster">
       <button type="submit">Create Movie</button>
     </form>
   </div>

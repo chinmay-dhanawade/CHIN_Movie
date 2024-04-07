@@ -1,7 +1,9 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 
-app_name = 'Myapp' 
+app_name = 'Myapp'
 
 urlpatterns = [
     path('', views.movie_list, name='movie_list'),

@@ -6,7 +6,7 @@ from .models import Review
 class MovieForm(forms.ModelForm):
     class Meta:
         model = Movie
-        fields = ['title', 'release_date', 'director']
+        fields = ['title', 'release_date', 'director', 'poster']
         widgets = {
             'release_date': forms.SelectDateWidget(empty_label="---"),
         }
