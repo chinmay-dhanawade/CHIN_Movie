@@ -224,7 +224,7 @@
     <div class="background-image">
         <div class="container">
             {% if user.is_authenticated %}
-            <p class="welcome">Welcome, {{ user.username }}!</p>
+            <p class="welcome">Welcome to CINI-CRITIQUE, {{ user.username }}!</p>
             <a href="{% url 'Myapp:movie_create' %}" class="add-movie-button">Add Movie</a>
             <h1>Movies</h1>
             <input type="text" id="searchInput" placeholder="Search movies by NAME...">

@@ -14,12 +14,12 @@ from .models import Movie, Review
 def movie_list(request):
     if not request.user.is_authenticated:
         return redirect('Myapp:user_login')
-    
+
     movies = Movie.objects.all()
     # Paginate the queryset
-    paginator = Paginator(movies, 9)  # Show 10 movies per page
+    paginator = Paginator(movies, 3)  # Show 10 movies per page
     page = request.GET.get('page')  # Get the current page number
-    
+
     try:
         movies = paginator.page(page)
     except PageNotAnInteger:
@@ -28,12 +28,12 @@ def movie_list(request):
     except EmptyPage:
         # If page is out of range (e.g., 9999), deliver last page of results.
         movies = paginator.page(paginator.num_pages)
-    
+
     context = {'movies': movies}
     return render(request, 'Myapp/movie_list.html', context)
 
 def movie_create(request):
-  """Creates a new movie."""
+    """Creates a new movie."""
   if request.method == 'POST':
     form = MovieForm(request.POST, request.FILES)
     if form.is_valid():
